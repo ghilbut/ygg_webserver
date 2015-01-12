@@ -1,0 +1,10 @@
+<ul>
+  {% for item in items %}
+  <li class="item">
+	{{item.box_id}} : {{item.address}}&nbsp;&nbsp;&nbsp;
+	<button class="del-button" value="{{item.box_id}}">DEL</button>
+  </li>
+  {% empty %}
+  <li><b>Empty !!</b></li>
+  {% endfor %}
+</ul>

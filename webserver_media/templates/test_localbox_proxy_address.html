@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+  <div id="list">
+  {% include 'localbox_address_list.html' %}
+  </div>
+
+  <hr>
+
+  <div>
+    <ul>
+    <li><label for="box-id">BOX-ID: </label><input id="box-id" value="BOX-ID-00" /></li>
+	<li><label for="address">ADDRESS: </label><input id="address" value="0.0.0.0" /></li>
+	<li><button id="add-button">ADD</button></li>
+	</ul>
+  </div>
+
+<script>
+
+var list = document.getElementsByClassName('del-button')
+  , item;
+
+for (var i=0, ilen=list.length; i < ilen; ++i) {
+  item = list[i];
+  item.onclick = function () {
+    var box_id = this.value
+      , json = JSON.stringify({'box-id': box_id})
+      , xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/api/unreg/localbox/proxy/address');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+      if (this.readyState === this.DONE) {
+        if (this.status !== 200) {
+          alert('Error !!');
+        }
+        window.location.href = '';
+      }
+    };
+    xhr.send(json);
+  }
+}
+
+// ----------------------------------------------------------------
+
+document.getElementById('add-button').onclick = function () {
+
+  var box_id = document.getElementById('box-id').value
+    , address = document.getElementById('address').value
+    , json = JSON.stringify({'box-id': box_id, 'address': address})
+    , xhr = new XMLHttpRequest();
+  
+  xhr.open('POST', '/api/reg/localbox/proxy/address');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (this.readyState === this.DONE) {
+      if (this.status !== 200) {
+        alert('Error !!');
+      }
+      window.location.href = '';
+    }
+  };
+  xhr.send(json);
+}
+</script>
+
+</body>
+</html>

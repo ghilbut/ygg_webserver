@@ -52,3 +52,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
+
+# ygg_webserver
+*.sqlite3
